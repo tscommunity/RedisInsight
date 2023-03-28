@@ -30,7 +30,7 @@ fixture `Browser Context`
         await deleteStandaloneDatabaseApi(ossStandaloneConfig);
     });
 // Update after resolving https://redislabs.atlassian.net/browse/RI-3299
-test.only('Verify that user can see saved CLI size on Browser page when he returns back to Browser page', async t => {
+test('Verify that user can see saved CLI size on Browser page when he returns back to Browser page', async t => {
     const offsetY = 200;
 
     await t.click(cliPage.cliExpandButton);
