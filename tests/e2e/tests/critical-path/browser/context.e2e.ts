@@ -19,16 +19,27 @@ const speed = 0.4;
 let keyName = common.generateWord(10);
 let keys: string[];
 
-fixture `Browser Context`
-    .meta({type: 'critical_path', rte: rte.standalone})
+fixture`Browser Context`
+    .meta({ type: 'critical_path', rte: rte.standalone })
     .page(commonUrl)
-    .beforeEach(async() => {
+    .beforeEach(async () => {
         await acceptLicenseTermsAndAddDatabaseApi(ossStandaloneConfig, ossStandaloneConfig.databaseName);
     })
-    .afterEach(async() => {
+    .afterEach(async () => {
         // Delete database
         await deleteStandaloneDatabaseApi(ossStandaloneConfig);
     });
+test('Verify that user can see saved Key details and Keys tables size on Browser page when he returns back to Browser page', async t => {
+    const offsetX = 200;
+    const keyListWidth = await browserPage.keyListTable.clientWidth;
+    const cliResizeButton = await browserPage.resizeBtnKeyList;
+
+    // move resize 200px right
+    await t.drag(cliResizeButton, offsetX, 0, { speed });
+    await t.click(myRedisDatabasePage.myRedisDBButton);
+    await myRedisDatabasePage.clickOnDBByName(ossStandaloneConfig.databaseName);
+    await t.expect(await browserPage.keyListTable.clientWidth).gt(keyListWidth, 'Saved browser resizable context is proper');
+});
 // Update after resolving https://redislabs.atlassian.net/browse/RI-3299
 test('Verify that user can see saved CLI size on Browser page when he returns back to Browser page', async t => {
     const offsetY = 200;
@@ -43,17 +54,6 @@ test('Verify that user can see saved CLI size on Browser page when he returns ba
     await t.click(myRedisDatabasePage.myRedisDBButton);
     await myRedisDatabasePage.clickOnDBByName(ossStandaloneConfig.databaseName);
     await t.expect(await cliPage.cliArea.clientHeight).gt(cliAreaHeightEnd, 'Saved context for resizable cli is incorrect');
-});
-test('Verify that user can see saved Key details and Keys tables size on Browser page when he returns back to Browser page', async t => {
-    const offsetX = 200;
-    const keyListWidth = await browserPage.keyListTable.clientWidth;
-    const cliResizeButton = await browserPage.resizeBtnKeyList;
-
-    // move resize 200px right
-    await t.drag(cliResizeButton, offsetX, 0, { speed });
-    await t.click(myRedisDatabasePage.myRedisDBButton);
-    await myRedisDatabasePage.clickOnDBByName(ossStandaloneConfig.databaseName);
-    await t.expect(await browserPage.keyListTable.clientWidth).gt(keyListWidth, 'Saved browser resizable context is proper');
 });
 test('Verify that user can see saved filter per key type applied when he returns back to Browser page', async t => {
     keyName = common.generateWord(10);
@@ -81,22 +81,22 @@ test('Verify that user can see saved executed commands in CLI on Browser page wh
 
     // Execute command in CLI and open Settings page
     await t.click(cliPage.cliExpandButton);
-    for(const command of commands) {
+    for (const command of commands) {
         await t.typeText(cliPage.cliCommandInput, command, { replace: true, paste: true });
         await t.pressKey('enter');
     }
     await t.click(myRedisDatabasePage.settingsButton);
     // Return back to Browser and check executed command in CLI
     await t.click(myRedisDatabasePage.browserButton);
-    for(const command of commands) {
+    for (const command of commands) {
         await t.expect(cliPage.cliCommandExecuted.withExactText(command).exists).ok(`Executed command '${command}' in CLI is saved`);
     }
 });
 test
-    .before(async() => {
+    .before(async () => {
         await acceptLicenseTermsAndAddDatabaseApi(ossStandaloneBigConfig, ossStandaloneBigConfig.databaseName);
     })
-    .after(async() => {
+    .after(async () => {
         // Delete database
         await deleteStandaloneDatabaseApi(ossStandaloneBigConfig);
     })('Verify that user can see key details selected when he returns back to Browser page', async t => {
@@ -120,7 +120,7 @@ test
         await t.expect(await targetKey.getAttribute('class')).contains('table-row-selected', 'Not correct key selected in key list');
     });
 test
-    .after(async() => {
+    .after(async () => {
         // Clear and delete database
         await cliPage.sendCommandInCli(`DEL ${keys.join(' ')}`);
         await deleteStandaloneDatabaseApi(ossStandaloneConfig);

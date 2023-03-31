@@ -13,22 +13,42 @@ const myRedisDatabasePage = new MyRedisDatabasePage();
 
 const keyNames = [common.generateWord(20), common.generateWord(20)];
 const dbParameters = { host: ossStandaloneRedisearch.host, port: ossStandaloneRedisearch.port };
-const keyToAddParameters = { keysCount: 10000, keyNameStartWith: 'hashKey'};
-const keyToAddParameters2 = { keysCount: 500000, keyNameStartWith: 'hashKey'};
+const keyToAddParameters = { keysCount: 10000, keyNameStartWith: 'hashKey' };
+const keyToAddParameters2 = { keysCount: 500000, keyNameStartWith: 'hashKey' };
 
-fixture `Bulk Delete`
+fixture`Bulk Delete`
     .meta({ type: 'critical_path', rte: rte.standalone })
     .page(commonUrl)
-    .beforeEach(async() => {
+    .beforeEach(async () => {
         await acceptLicenseTermsAndAddDatabaseApi(ossStandaloneRedisearch, ossStandaloneRedisearch.databaseName);
         await browserPage.addHashKey(keyNames[0], '100000', common.generateWord(20), common.generateWord(20));
         await browserPage.addSetKey(keyNames[1], '100000', common.generateWord(20));
     })
-    .afterEach(async() => {
+    .afterEach(async () => {
         // Clear and delete database
         await deleteAllKeysFromDB(dbParameters.host, dbParameters.port);
         await deleteStandaloneDatabaseApi(ossStandaloneRedisearch);
     });
+test('Verify that user can see summary of scanned level', async t => {
+    const expectedAmount = new RegExp('Expected amount: ~(9|10) \\d{3} keys');
+    const scannedKeys = new RegExp('Scanned (5|10)% \\((500|1 000)/10 \\d{3}\\) and found \\d{3,5} keys');
+    const messageTitle = 'No pattern or key type set';
+    const messageText = 'To perform a bulk action, set the pattern or select the key type';
+
+    // Add 10000 Hash keys
+    await populateDBWithHashes(dbParameters.host, dbParameters.port, keyToAddParameters);
+    // Open bulk actions
+    await t.click(browserPage.bulkActionsButton);
+    // Verify that user can see no pattern selected message when no key type and pattern applied for Bulk Delete
+    await t.expect(bulkActionsPage.bulkActionsPlaceholder.textContent).contains(messageTitle, 'No pattern title not displayed');
+    await t.expect(bulkActionsPage.bulkActionsPlaceholder.textContent).contains(messageText, 'No pattern message not displayed');
+    // Filter by Hash keys
+    await browserPage.selectFilterGroupType(KeyTypesTexts.Hash);
+    // Verify that prediction of # of keys matching the filter in the entire database displayed
+    await t.expect(bulkActionsPage.bulkActionsSummary.textContent).match(expectedAmount, 'Bulk actions summary is not correct');
+    // Verify that % of total keys scanned, # of keys scanned / total # of keys in the database, # of keys matching the filter displayed
+    await t.expect(bulkActionsPage.bulkDeleteSummary.innerText).match(scannedKeys, 'Bulk delete summary is not correct');
+});
 test('Verify that user can access the bulk actions screen in the Browser', async t => {
     // Filter by Hash keys
     await browserPage.selectFilterGroupType(KeyTypesTexts.Hash);
@@ -49,28 +69,6 @@ test('Verify that user can access the bulk actions screen in the Browser', async
     await t.expect(bulkActionsPage.bulkActionWarningTooltip.textContent).contains(warningTooltipTitle, 'Warning Tooltip title is not displayed or text is invalid');
     await t.expect(bulkActionsPage.bulkActionWarningTooltip.textContent).contains(warningTooltipMessage, 'Warning Tooltip message is not displayed or text is invalid');
     await t.expect(bulkActionsPage.bulkApplyButton.exists).ok('Confirm deletion button not displayed');
-
-});
-test('Verify that user can see summary of scanned level', async t => {
-    const expectedAmount = new RegExp('Expected amount: ~(9|10) \\d{3} keys');
-    const scannedKeys = new RegExp('Scanned (5|10)% \\((500|1 000)/10 \\d{3}\\) and found \\d{3,5} keys');
-    const messageTitle = 'No pattern or key type set';
-    const messageText = 'To perform a bulk action, set the pattern or select the key type';
-
-    // Add 10000 Hash keys
-    await populateDBWithHashes(dbParameters.host, dbParameters.port, keyToAddParameters);
-    // Open bulk actions
-    await t.click(browserPage.bulkActionsButton);
-    // Verify that user can see no pattern selected message when no key type and pattern applied for Bulk Delete
-    await t.expect(bulkActionsPage.bulkActionsPlaceholder.textContent).contains(messageTitle, 'No pattern title not displayed');
-    await t.expect(bulkActionsPage.bulkActionsPlaceholder.textContent).contains(messageText, 'No pattern message not displayed');
-    // Filter by Hash keys
-    await browserPage.selectFilterGroupType(KeyTypesTexts.Hash);
-    // Verify that prediction of # of keys matching the filter in the entire database displayed
-    await t.expect(bulkActionsPage.bulkActionsSummary.textContent).match(expectedAmount, 'Bulk actions summary is not correct');
-    // Verify that % of total keys scanned, # of keys scanned / total # of keys in the database, # of keys matching the filter displayed
-    await t.expect(bulkActionsPage.bulkDeleteSummary.innerText).match(scannedKeys, 'Bulk delete summary is not correct');
-
 });
 test('Verify that user can see blue progress line during the process of bulk deletion', async t => {
     // Add 500000 Hash keys
@@ -83,7 +81,7 @@ test('Verify that user can see blue progress line during the process of bulk del
     await t.expect(bulkActionsPage.bulkStatusInProgress.exists).ok('Progress value not displayed', { timeout: 5000 });
 });
 test
-    .before(async() => {
+    .before(async () => {
         await acceptLicenseTermsAndAddDatabaseApi(ossStandaloneRedisearch, ossStandaloneRedisearch.databaseName);
         // Add 1000000 Hash keys
         await populateDBWithHashes(dbParameters.host, dbParameters.port, keyToAddParameters2);
@@ -100,7 +98,7 @@ test
         await t.expect(bulkActionsPage.bulkStatusInProgress.exists).ok('Progress value not displayed', { timeout: 5000 });
     });
 test
-    .before(async() => {
+    .before(async () => {
         await acceptLicenseTermsAndAddDatabaseApi(ossStandaloneRedisearch, ossStandaloneRedisearch.databaseName);
         // Add 500000 keys
         await populateDBWithHashes(dbParameters.host, dbParameters.port, keyToAddParameters2);
@@ -129,7 +127,7 @@ test('Verify that when bulk deletion is completed, status Action completed is di
     await t.expect(bulkActionsPage.bulkDeleteSummary.innerText).contains('Scanned 100% (2/2) and found 1 keys', 'Bulk delete summary is not correct');
 });
 test
-    .before(async() => {
+    .before(async () => {
         await acceptLicenseTermsAndAddDatabaseApi(ossStandaloneRedisearch, ossStandaloneRedisearch.databaseName);
         await browserPage.addSetKey(keyNames[1], '100000', common.generateWord(20));
         // Add 10000 Hash keys
