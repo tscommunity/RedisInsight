@@ -1,6 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../../fixtures/pages-fixtures';
 import { acceptLicenseTermsAndAddDatabaseApi } from '../../../helpers/database';
-import { BrowserPage } from '../../../pageObjects';
 import { commonUrl, ossStandaloneConfig } from '../../../helpers/conf';
 import { deleteStandaloneDatabaseApi } from '../../../helpers/api/api-database';
 import { Common } from '../../../helpers/common';
@@ -17,17 +16,14 @@ test.describe('Hash Key fields verification', () => {
         await page.goto(commonUrl);
         await acceptLicenseTermsAndAddDatabaseApi(page, ossStandaloneConfig, ossStandaloneConfig.databaseName);
     });
-    test.afterEach(async({ page }) => {
-        const browserPage = new BrowserPage(page);
+    test.afterEach(async({ browserPage }) => {
         await browserPage.deleteKeyByName(keyName);
         await deleteStandaloneDatabaseApi(ossStandaloneConfig);
     });
 
-    test('Verify that user can search by full field name in Hash', async({ page }) => {
-        const browserPage = new BrowserPage(page);
-        const common = new Common();
-
+    test('Verify that user can search by full field name in Hash', async({ browserPage }) => {
         keyName = common.generateWord(10);
+
         await browserPage.addHashKey(keyName, keyTTL);
         // Add field to the hash key
         await browserPage.addFieldToHash(keyFieldValue, keyValue);

@@ -16,6 +16,8 @@
     "cross-env": "^7.0.3",
     "dotenv-cli": "^5.0.0",
     "edit-json-file": "1.7.0",
+    "electron-playwright-helpers": "^1.5.4",
+    "electron-to-chromium": "^1.4.367",
     "eslint": "7.32.0",
     "eslint-plugin-import": "2.24.2",
     "redis": "3.0.2",

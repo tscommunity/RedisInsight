@@ -7,8 +7,8 @@ const chance = new Chance();
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // lgtm[js/disabling-certificate-validation]
 
 export class Common {
-    async waitForElementNotVisible(elm): Promise<void> {
-        expect(elm).not.toBeVisible();
+    async waitForElementNotVisible(elm: any): Promise<void> {
+        await expect(elm).not.toBeVisible();
     }
 
     /**

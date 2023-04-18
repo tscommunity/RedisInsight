@@ -119,7 +119,7 @@ export class BrowserPage {
      * @param keyValue The hash value
      */
     async addFieldToHash(keyFieldValue: string, keyValue: string): Promise<void> {
-        if (await this.toastCloseButton.isVisible()) {
+        if (await this.toastCloseButton.isVisible) {
             await this.toastCloseButton.click();
         }
         await this.addKeyValueItemsButton.click();

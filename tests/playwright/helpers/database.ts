@@ -33,7 +33,6 @@ export async function addNewStandaloneDatabase(page: Page, databaseParameters: A
 */
 export async function acceptLicenseTermsAndAddDatabase(page: Page, databaseParameters: AddNewDatabaseParameters, databaseName: string): Promise<void> {
     const myRedisDatabasePage = new MyRedisDatabasePage(page);
-
     await acceptLicenseTerms(page);
     await addNewStandaloneDatabase(page, databaseParameters);
     // Connect to DB
@@ -81,13 +80,11 @@ export async function acceptLicenseAndConnectToRedisStack(page: Page): Promise<v
  * @param databaseName The database name
 */
 export async function acceptTermsAddDatabaseOrConnectToRedisStack(page: Page, databaseParameters: AddNewDatabaseParameters, databaseName: string): Promise<void> {
-    // const addRedisDatabasePage = new AddRedisDatabasePage(page);
-    // if (await addRedisDatabasePage.addDatabaseButton.isVisible()) {
-    //     await acceptLicenseTermsAndAddDatabase(page, databaseParameters, databaseName);
-    // }
-    await page.waitForTimeout(2000);
-    await acceptLicenseTermsAndAddDatabase(page, databaseParameters, databaseName);
-    // else {
-    //     await acceptLicenseAndConnectToRedisStack(page);
-    // }
+    const addRedisDatabasePage = new AddRedisDatabasePage(page);
+    if (await addRedisDatabasePage.addDatabaseButton.isVisible) {
+        await acceptLicenseTermsAndAddDatabase(page, databaseParameters, databaseName);
+    }
+    else {
+        await acceptLicenseAndConnectToRedisStack(page);
+    }
 }

@@ -21,7 +21,7 @@ export class MyRedisDatabasePage {
         if (await this.toastCloseButton.isVisible()) {
             await this.toastCloseButton.click();
         }
-        const database = this.page.locator('[data-testid^=instance-name]').filter({ hasText: dbName.trim() });
+        const database = this.dbNameList.filter({ hasText: dbName.trim() }).first();
         await expect(database).toBeVisible();
         await database.click();
     }

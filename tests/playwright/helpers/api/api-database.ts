@@ -41,8 +41,8 @@ export async function addNewStandaloneDatabaseApi(databaseParameters: AddNewData
     const response = await request(endpoint).post('/databases')
         .send(requestBody)
         .set('Accept', 'application/json');
-    await expect(response.status).toEqual(201);
-    await expect(await response.body.name).toEqual(databaseParameters.databaseName);
+    expect(response.status).toEqual(201);
+    expect(await response.body.name).toEqual(databaseParameters.databaseName);
 }
 
 /**
