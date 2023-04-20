@@ -1,4 +1,4 @@
-# RedisInsight Testcafe e2e tests
+# RedisInsight Playwright e2e tests
 
 ### Before run tests run next commands
 
@@ -19,7 +19,7 @@ docker run --name redis-last-version -p 7777:6379 -d redislabs/redismod
 - to run tests in Chrome browser run
 
 ```bash
-yarn test:chrome
+yarn playwright test
 ```
 
 ### Local test development
