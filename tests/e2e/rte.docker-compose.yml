@@ -66,7 +66,7 @@ services:
       context: ./rte/oss-standalone-big
       dockerfile: Dockerfile
       args:
-        TEST_DB_DUMP: $TEST_BIG_DB_DUMP
+        TEST_DB_DUMP: https://s3.amazonaws.com/redisinsight.test/public/rte/dump/big/dump.tar.gz
     ports:
       - 8103:6379
 

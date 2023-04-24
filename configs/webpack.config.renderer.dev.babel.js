@@ -2,7 +2,6 @@ import path from 'path';
 import webpack from 'webpack';
 import { merge } from 'webpack-merge';
 import { spawn } from 'child_process';
-import { toString } from 'lodash'
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 import baseConfig from './webpack.config.base';
@@ -214,11 +213,7 @@ export default merge(baseConfig, {
       PIPELINE_COUNT_DEFAULT: '5',
       BUILD_TYPE: 'ELECTRON',
       APP_VERSION: version,
-      SEGMENT_WRITE_KEY:
-        'SEGMENT_WRITE_KEY' in process.env ? process.env.SEGMENT_WRITE_KEY : 'SOURCE_WRITE_KEY',
-      CONNECTIONS_TIMEOUT_DEFAULT: 'CONNECTIONS_TIMEOUT_DEFAULT' in process.env
-        ? process.env.CONNECTIONS_TIMEOUT_DEFAULT
-        : toString(30 * 1000), // 30 sec
+      SEGMENT_WRITE_KEY: 'MWGOG146oPdLSWO5mZy3eM1NzcC3alRF',
     }),
 
     new webpack.LoaderOptionsPlugin({

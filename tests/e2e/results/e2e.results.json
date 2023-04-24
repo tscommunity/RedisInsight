@@ -1,0 +1,32 @@
+{
+  "startTime": "2023-04-07T14:21:10.235Z",
+  "endTime": "2023-04-07T14:21:29.684Z",
+  "userAgents": [
+    "Chrome 112.0.5615.49 / Windows 10"
+  ],
+  "passed": 1,
+  "total": 1,
+  "skipped": 0,
+  "fixtures": [
+    {
+      "name": "Add keys",
+      "path": "C:\\Projects\\redisinsight-redis\\RedisInsight\\tests\\e2e\\tests\\smoke\\browser\\add-keys.e2e.ts",
+      "meta": {
+        "type": "smoke",
+        "rte": "standalone"
+      },
+      "tests": [
+        {
+          "name": "Verify that user can add Hash Key",
+          "meta": {},
+          "errs": [],
+          "durationMs": 19428,
+          "unstable": false,
+          "screenshotPath": null,
+          "skipped": false
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

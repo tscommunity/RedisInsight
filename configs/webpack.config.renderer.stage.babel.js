@@ -22,8 +22,7 @@ export default merge(baseConfig, {
       APP_ENV: 'electron',
       SCAN_COUNT_DEFAULT: '500',
       SCAN_COUNT_MEMORY_ANALYSES: '10000',
-      SEGMENT_WRITE_KEY:
-        'SEGMENT_WRITE_KEY' in process.env ? process.env.SEGMENT_WRITE_KEY : 'SOURCE_WRITE_KEY',
+      SEGMENT_WRITE_KEY: 'MWGOG146oPdLSWO5mZy3eM1NzcC3alRF',
       CONNECTIONS_TIMEOUT_DEFAULT: 'CONNECTIONS_TIMEOUT_DEFAULT' in process.env
         ? process.env.CONNECTIONS_TIMEOUT_DEFAULT
         : toString(30 * 1000), // 30 sec

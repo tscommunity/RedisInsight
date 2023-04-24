@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite name="TestCafe Tests: Chrome 112.0.5615.49 / Windows 10" tests="1" failures="0" skipped="0" errors="0" time="19.448" timestamp="Fri, 07 Apr 2023 14:21:29 GMT" >
+  <testcase classname="Add keys" file="C:\Projects\redisinsight-redis\RedisInsight\tests\e2e\tests\smoke\browser\add-keys.e2e.ts" name="Verify that user can add Hash Key" time="19.428">
+  </testcase>
+</testsuite>

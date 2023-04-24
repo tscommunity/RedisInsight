@@ -5,15 +5,15 @@ import { Chance } from 'chance';
 const chance = new Chance();
 
 // Urls for using in the tests
-export const commonUrl = process.env.COMMON_URL || 'https://localhost:5000';
-export const apiUrl = process.env.API_URL || 'https://localhost:5000/api';
+export const commonUrl = process.env.COMMON_URL || 'http://localhost:8080';
+export const apiUrl = process.env.API_URL || 'http://localhost:5000/api';
 
 export const fileDownloadPath = joinPath(os.homedir(), 'Downloads');
 const uniqueId = chance.string({ length: 10 });
 
 export const ossStandaloneConfig = {
-    host: process.env.OSS_STANDALONE_HOST || 'oss-standalone',
-    port: process.env.OSS_STANDALONE_PORT || '6379',
+    host: process.env.OSS_STANDALONE_HOST || 'localhost',
+    port: process.env.OSS_STANDALONE_PORT || '8100',
     databaseName: `${process.env.OSS_STANDALONE_DATABASE_NAME || 'test_standalone'}-${uniqueId}`,
     databaseUsername: process.env.OSS_STANDALONE_USERNAME,
     databasePassword: process.env.OSS_STANDALONE_PASSWORD
@@ -28,16 +28,16 @@ export const ossStandaloneConfigEmpty = {
 };
 
 export const ossStandaloneV5Config = {
-    host: process.env.OSS_STANDALONE_V5_HOST || 'oss-standalone-v5',
-    port: process.env.OSS_STANDALONE_V5_PORT || '6379',
+    host: process.env.OSS_STANDALONE_V5_HOST || 'localhost',
+    port: process.env.OSS_STANDALONE_V5_PORT || '8101',
     databaseName: `${process.env.OSS_STANDALONE_V5_DATABASE_NAME || 'test_standalone-v5'}-${uniqueId}`,
     databaseUsername: process.env.OSS_STANDALONE_V5_USERNAME,
     databasePassword: process.env.OSS_STANDALONE_V5_PASSWORD
 };
 
 export const ossStandaloneRedisearch = {
-    host: process.env.OSS_STANDALONE_REDISEARCH_HOST || 'oss-standalone-redisearch',
-    port: process.env.OSS_STANDALONE_REDISEARCH_PORT || '6379',
+    host: process.env.OSS_STANDALONE_REDISEARCH_HOST || 'localhost',
+    port: process.env.OSS_STANDALONE_REDISEARCH_PORT || '8102',
     databaseName: `${process.env.OSS_STANDALONE_REDISEARCH_DATABASE_NAME || 'test_standalone-redisearch'}-${uniqueId}`,
     databaseUsername: process.env.OSS_STANDALONE_REDISEARCH_USERNAME,
     databasePassword: process.env.OSS_STANDALONE_REDISEARCH_PASSWORD
