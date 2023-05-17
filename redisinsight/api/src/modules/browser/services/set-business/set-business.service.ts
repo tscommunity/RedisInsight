@@ -5,7 +5,7 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { RedisErrorCodes } from 'src/constants';
+import { RECOMMENDATION_NAMES, RedisErrorCodes } from 'src/constants';
 import ERROR_MESSAGES from 'src/constants/error-messages';
 import config from 'src/utils/config';
 import {
@@ -17,6 +17,7 @@ import {
   BrowserToolKeysCommands,
   BrowserToolSetCommands,
 } from 'src/modules/browser/constants/browser-tool-commands';
+import { DatabaseRecommendationService } from 'src/modules/database-recommendation/database-recommendation.service';
 import { plainToClass } from 'class-transformer';
 import {
   AddMembersToSetDto,
@@ -37,6 +38,7 @@ export class SetBusinessService {
 
   constructor(
     private browserTool: BrowserToolService,
+    private recommendationService: DatabaseRecommendationService,
   ) {}
 
   public async createSet(
@@ -79,6 +81,7 @@ export class SetBusinessService {
     clientMetadata: ClientMetadata,
     dto: GetSetMembersDto,
   ): Promise<GetSetMembersResponse> {
+    const client = await this.browserTool.getRedisClient(clientMetadata);
     this.logger.log('Getting members of the Set data type stored at key.');
     const { keyName } = dto;
     let result: GetSetMembersResponse = {
@@ -117,6 +120,16 @@ export class SetBusinessService {
         const scanResult = await this.scanSet(clientMetadata, dto);
         result = { ...result, ...scanResult };
       }
+      this.recommendationService.check(
+        clientMetadata,
+        RECOMMENDATION_NAMES.INTEGERS_IN_SET,
+        {
+          members: result.members,
+          keyName,
+          client,
+          databaseId: clientMetadata.databaseId,
+        },
+      );
       this.logger.log('Succeed to get members of the Set data type.');
       return plainToClass(GetSetMembersResponse, result);
     } catch (error) {

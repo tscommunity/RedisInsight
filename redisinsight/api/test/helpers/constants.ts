@@ -4,6 +4,7 @@ import { randomBytes } from 'crypto';
 import { getASCIISafeStringFromBuffer, getBufferFromSafeASCIIString } from "src/utils/cli-helper";
 import { RECOMMENDATION_NAMES } from 'src/constants';
 import { Compressor } from 'src/modules/database/entities/database.entity';
+import { Vote } from 'src/modules/database-recommendation/models';
 
 const API = {
   DATABASES: 'databases',
@@ -228,6 +229,8 @@ export const constants = {
   TEST_HASH_FIELD_1_VALUE: TEST_RUN_ID + '_hash_f_1_val',
   TEST_HASH_FIELD_2_NAME: TEST_RUN_ID + '_hash_f_2_name',
   TEST_HASH_FIELD_2_VALUE: TEST_RUN_ID + '_hash_f_2_val',
+  TEST_HASH_FIELD_3_NAME: TEST_RUN_ID + '_hash_f_3_name',
+  TEST_HASH_FIELD_3_VALUE: TEST_RUN_ID + '_hash_f_3_val',
   TEST_HASH_EXPIRE_1: KEY_TTL,
   TEST_HASH_KEY_2: TEST_RUN_ID + '_hash_2' + CLUSTER_HASH_SLOT,
   TEST_HASH_HUGE_KEY: 'big hash 1M',
@@ -479,6 +482,19 @@ export const constants = {
     threshold: 4 * 60 * 60 * 1000,
   },
 
+  // recommendations
+  TEST_RECOMMENDATIONS_DATABASE_ID: uuidv4(),
+  TEST_RECOMMENDATION_ID_1: uuidv4(),
+  TEST_RECOMMENDATION_ID_2: uuidv4(),
+  TEST_RECOMMENDATION_ID_3: uuidv4(),
+
+  TEST_RECOMMENDATION_VOTE: Vote.Like,
+  TEST_RECOMMENDATION_HIDE: true,
+
+  TEST_RECOMMENDATION_NAME_1: RECOMMENDATION_NAMES.BIG_SETS,
+  TEST_RECOMMENDATION_NAME_2: RECOMMENDATION_NAMES.BIG_STRINGS,
+  TEST_RECOMMENDATION_NAME_3: RECOMMENDATION_NAMES.BIG_STRINGS,
+
   TEST_LUA_DATABASE_ANALYSIS_RECOMMENDATION: {
     name: RECOMMENDATION_NAMES.LUA_SCRIPT,
   },
@@ -527,13 +543,16 @@ export const constants = {
     name: RECOMMENDATION_NAMES.REDIS_VERSION,
   },
 
-  TEST_REDISEARCH_RECOMMENDATION: {
-    name: RECOMMENDATION_NAMES.REDIS_SEARCH,
+  TEST_SEARCH_JSON_RECOMMENDATION: {
+    name: RECOMMENDATION_NAMES.SEARCH_JSON,
   },
-
 
   TEST_SEARCH_INDEXES_RECOMMENDATION: {
     name: RECOMMENDATION_NAMES.SEARCH_INDEXES,
+  },
+
+  TEST_SEARCH_HASH_RECOMMENDATION: {
+    name: RECOMMENDATION_NAMES.SEARCH_HASH,
   },
 
   TEST_LUA_SCRIPT_VOTE_RECOMMENDATION: {
