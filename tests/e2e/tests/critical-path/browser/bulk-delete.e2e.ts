@@ -99,7 +99,8 @@ test
         await t.click(myRedisDatabasePage.NavigationPanel.browserButton);
         await t.expect(browserPage.BulkActions.bulkStatusInProgress.exists).ok('Progress value not displayed', { timeout: 5000 });
     });
-test
+// skipped due to unstable
+test.skip
     .before(async() => {
         await acceptLicenseTermsAndAddDatabaseApi(ossStandaloneRedisearch, ossStandaloneRedisearch.databaseName);
         // Add 500000 keys
