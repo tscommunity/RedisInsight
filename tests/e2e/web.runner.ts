@@ -43,7 +43,6 @@ import testcafe from 'testcafe';
                     speed: 1,
                     quarantineMode: { successThreshold: 1, attemptLimit: 3 },
                     pageRequestTimeout: 8000,
-                    nativeAutomation: true,
                 });
         })
         .then((failedCount) => {

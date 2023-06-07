@@ -32,8 +32,7 @@ test
         await addNewStandaloneDatabase(ossStandaloneConfig);
         await t.expect(myRedisDatabasePage.dbNameList.withExactText(ossStandaloneConfig.databaseName).exists).ok('The database not added', { timeout: 10000 });
     });
-// update after resolving testcafe Native Automation mode limitations
-test.skip
+test
     .meta({ env: env.web })('Verify that all the links are valid from Welcome page', async t => {
         // Verify build from source link
         await t.click(myRedisDatabasePage.AddRedisDatabase.buildFromSource);

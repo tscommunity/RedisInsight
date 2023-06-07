@@ -89,15 +89,14 @@ test
         await browserPage.CommandHelper.selectFilterGroupType(COMMAND_GROUP_TIMESERIES);
         // Search per part of command and check all opened commands
         await browserPage.CommandHelper.checkSearchedCommandInCommandHelper(commandForSearch, timeSeriesCommands);
-        // update after resolving testcafe Native Automation mode limitations
-        // // Check the first command documentation url
-        // await browserPage.CommandHelper.checkURLCommand(timeSeriesCommands[0], `https://redis.io/commands/${timeSeriesCommands[0].toLowerCase()}/`);
-        // await t.switchToParentWindow();
+        // Check the first command documentation url
+        await browserPage.CommandHelper.checkURLCommand(timeSeriesCommands[0], `https://redis.io/commands/${timeSeriesCommands[0].toLowerCase()}/`);
+        await t.switchToParentWindow();
     });
 test
     .meta({ env: env.web })('Verify that user can type GRAPH. in Command helper and see auto-suggestions from RedisGraph commands.json', async t => {
         const commandForSearch = 'GRAPH.';
-        // const externalPageLink = 'https://redis.io/commands/graph.config-get/';
+        const externalPageLink = 'https://redis.io/commands/graph.config-get/';
         // Open Command Helper
         await t.click(browserPage.CommandHelper.expandCommandHelperButton);
         // Select group from list and remember commands
@@ -111,8 +110,7 @@ test
         await browserPage.CommandHelper.selectFilterGroupType(COMMAND_GROUP_GRAPH);
         // Search per part of command and check all opened commands
         await browserPage.CommandHelper.checkSearchedCommandInCommandHelper(commandForSearch, graphCommands);
-        // update after resolving testcafe Native Automation mode limitations
-        // // Check the first command documentation url
-        // await browserPage.CommandHelper.checkURLCommand(graphCommands[0], externalPageLink);
-        // await t.switchToParentWindow();
+        // Check the first command documentation url
+        await browserPage.CommandHelper.checkURLCommand(graphCommands[0], externalPageLink);
+        await t.switchToParentWindow();
     });
