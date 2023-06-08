@@ -54,7 +54,7 @@ test('Verify that user can run multiple commands in one query in Workbench', asy
     const multipleCommands = [
         'info',
         'command',
-        'FT.SEARCH idx *'
+        'CLIENT LIST'
     ];
         // Send commands
     await workbenchPage.sendCommandInWorkbench(commandForSend1);

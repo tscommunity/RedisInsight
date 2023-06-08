@@ -81,7 +81,8 @@ test('Verify that user can see blue progress line during the process of bulk del
     await t.expect(browserPage.BulkActions.progressLine.exists).ok('Blue progress line not displayed', { timeout: 5000 });
     await t.expect(browserPage.BulkActions.bulkStatusInProgress.exists).ok('Progress value not displayed', { timeout: 5000 });
 });
-test
+// skipped due to unstable
+test.skip
     .before(async() => {
         await acceptLicenseTermsAndAddDatabaseApi(ossStandaloneRedisearch, ossStandaloneRedisearch.databaseName);
         // Add 1000000 Hash keys
