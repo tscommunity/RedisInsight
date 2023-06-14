@@ -31,6 +31,7 @@ export interface Props {
   containerClassName?: string
   turnOffAutoRefresh?: boolean
   onRefresh: (enableAutoRefresh: boolean) => void
+  onRefreshClicked: () => void
   onEnableAutoRefresh?: (enableAutoRefresh: boolean, refreshRate: string) => void
   onChangeAutoRefreshRate?: (enableAutoRefresh: boolean, refreshRate: string) => void
   iconSize?: EuiButtonIconSizes
@@ -47,6 +48,7 @@ const AutoRefresh = ({
   testid = '',
   turnOffAutoRefresh,
   onRefresh,
+  onRefreshClicked,
   onEnableAutoRefresh,
   onChangeAutoRefreshRate,
   iconSize = 'm'
@@ -147,6 +149,11 @@ const AutoRefresh = ({
     onRefresh(enableAutoRefresh)
   }
 
+  const handleRefreshClick = () => {
+    handleRefresh()
+    onRefreshClicked?.()
+  }
+
   const onChangeEnableAutoRefresh = (value: boolean) => {
     setEnableAutoRefresh(value)
 
@@ -174,7 +181,7 @@ const AutoRefresh = ({
           size={iconSize}
           iconType="refresh"
           disabled={loading}
-          onClick={handleRefresh}
+          onClick={handleRefreshClick}
           onMouseEnter={updateLastRefresh}
           className={cx(styles.btn, { [styles.rolling]: enableAutoRefresh })}
           aria-labelledby={testid?.replaceAll?.('-', ' ') || 'Refresh button'}
