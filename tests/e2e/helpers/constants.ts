@@ -53,3 +53,10 @@ export enum Methods {
     get = 'get',
     delete = 'delete'
 }
+
+export enum LibrariesSections {
+    Functions = 'Functions',
+    KeyspaceTriggers = 'Keyspace',
+    ClusterFunctions = 'Cluster',
+    StreamFunctions= 'Stream',
+}
