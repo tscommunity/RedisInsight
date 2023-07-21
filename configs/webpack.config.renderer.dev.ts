@@ -264,9 +264,7 @@ const configuration: webpack.Configuration = {
       'process.env.CONNECTIONS_TIMEOUT_DEFAULT': 'CONNECTIONS_TIMEOUT_DEFAULT' in process.env
         ? JSON.stringify(process.env.CONNECTIONS_TIMEOUT_DEFAULT)
         : JSON.stringify(30 * 1000),
-      'process.env.SEGMENT_WRITE_KEY': 'SEGMENT_WRITE_KEY' in process.env
-        ? JSON.stringify(process.env.SEGMENT_WRITE_KEY)
-        : JSON.stringify('SOURCE_WRITE_KEY'),
+      'process.env.SEGMENT_WRITE_KEY': JSON.stringify('MWGOG146oPdLSWO5mZy3eM1NzcC3alRF'),
     }),
   ],
 
