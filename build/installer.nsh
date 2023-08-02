@@ -8,5 +8,5 @@
 !macroend
 
 !macro customUnInstall
-  ExecWait "del /f $INSTDIR"
+  RMDir $INSTDIR
 !macroend
