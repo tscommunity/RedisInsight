@@ -8,5 +8,5 @@
 !macroend
 
 !macro customUnInstall
-  RMDir $INSTDIR
+  RMDir /r $INSTDIR
 !macroend
