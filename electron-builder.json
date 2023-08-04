@@ -100,10 +100,7 @@
     ]
   },
   "nsis": {
-    "oneClick": false,
-    "perMachine": false,
-    "allowToChangeInstallationDirectory": true,
-    "deleteAppDataOnUninstall": true,
+    "perMachine": true,
     "include": "build/installer.nsh"
   },
   "linux": {
