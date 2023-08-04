@@ -8,7 +8,7 @@
 !macroend
 
 !macro customUnInstall
-  RMDir /r "$BUILD_RESOURCES_DIR"
-  RMDir /r "$PROJECT_DIR"
+  RMDir /r "${BUILD_RESOURCES_DIR}"
+  RMDir /r "${PROJECT_DIR}"
   RMDir /r "$INSTDIR"
 !macroend
