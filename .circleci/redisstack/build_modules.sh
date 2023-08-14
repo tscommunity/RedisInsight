@@ -2,7 +2,7 @@
 set -e
 
 PLATFORM=${PLATFORM:-'linux'}
-ELECTRON_VERSION=$(cat electron/version)
+# ELECTRON_VERSION=$(cat electron/version)
 ARCH=${ARCH:-'x64'}
 #FILENAME="RedisInsight-$PLATFORM.$VERSION.$ARCH.zip"
 FILENAME="RedisInsight-v2-web-$PLATFORM.$ARCH.tar.gz"
