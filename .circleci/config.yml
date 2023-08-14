@@ -180,6 +180,41 @@ executors:
       docker_layer_caching: true
 
 jobs:
+  #Test redistack build
+  poc-job:
+    machine:
+      image: ubuntu-2004:202101-01
+    resource_class: large
+    parameters:
+      env:
+        description: Build environment (stage || prod)
+        type: enum
+        default: stage
+        enum: ['stage', 'prod', 'dev']
+      redisstack:
+        description: Build RedisStack archives
+        type: boolean
+        default: true
+    steps:
+      - checkout
+      - node/install:
+          node-version: '18.15.0'
+      - attach_workspace:
+          at: .
+      - when:
+          condition:
+            equal: [ true, << parameters.redisstack >> ]
+          steps:
+            - run:
+                name: Build sources
+                command: ./.circleci/redisstack/build.sh
+            - run:
+                name: Build modules
+                command: |
+                  PLATFORM=linux ARCH=x64 .circleci/redisstack/build_modules.sh
+      - store_artifacts:
+          path: release
+          destination: release
   # Test jobs
   unit-tests-ui:
     docker:
@@ -1002,6 +1037,11 @@ jobs:
             done
 
 workflows:
+  poc:
+    jobs:
+      - job-poc:
+          name: POC
+          env: prod
   # FE Unit tests for "fe/feature" or "fe/bugfix" branches only
   frontend-tests:
     jobs:

@@ -21,13 +21,12 @@ yarn --cwd ./redisinsight/api autoclean --force
 
 rm -rf redisinsight/build.zip
 
-cp LICENSE ./redisinsight
+ls -la redisinsight/api/dist
+#cp redisinsight/api/package.json redisinsight/api/dist
 
 cd redisinsight && tar -czvf build.tar.gz \
 api/node_modules \
 api/dist \
-ui/dist \
-LICENSE \
 && cd ..
 
 mkdir -p release/redisstack
