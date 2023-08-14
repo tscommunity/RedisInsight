@@ -1039,7 +1039,7 @@ jobs:
 workflows:
   poc:
     jobs:
-      - job-poc:
+      - poc-job:
           name: POC
           env: prod
   # FE Unit tests for "fe/feature" or "fe/bugfix" branches only
