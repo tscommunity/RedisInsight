@@ -42,7 +42,7 @@ const PATH_CONFIG = config.get('dir_path');
     RouterModule.forRoutes(routes),
     AutodiscoveryModule,
     RedisEnterpriseModule,
-    CloudModule.register(),
+    CloudModule,
     RedisSentinelModule,
     BrowserModule,
     CliModule,

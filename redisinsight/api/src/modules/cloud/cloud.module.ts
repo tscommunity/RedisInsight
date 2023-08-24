@@ -6,19 +6,14 @@ import { CloudTaskModule } from 'src/modules/cloud/task/cloud-task.module';
 import { CloudJobModule } from 'src/modules/cloud/job/cloud-job.module';
 import { CloudCapiKeyModule } from 'src/modules/cloud/capi-key/cloud-capi-key.module';
 
-@Module({})
-export class CloudModule {
-  static register() {
-    return {
-      module: CloudModule,
-      imports: [
-        CloudAuthModule,
-        CloudUserModule,
-        CloudAutodiscoveryModule,
-        CloudTaskModule,
-        CloudJobModule,
-        CloudCapiKeyModule,
-      ],
-    };
-  }
-}
+@Module({
+  imports: [
+    CloudAuthModule,
+    CloudUserModule,
+    CloudAutodiscoveryModule,
+    CloudTaskModule,
+    CloudJobModule,
+    CloudCapiKeyModule,
+  ],
+})
+export class CloudModule {}
