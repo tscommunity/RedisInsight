@@ -72,10 +72,8 @@ export default {
   },
   db: {
     database: join(homedir, 'redisinsight.db'),
-    synchronize: true,
-    migrationsRun: false,
-    // synchronize: process.env.DB_SYNC ? process.env.DB_SYNC === 'true' : false,
-    // migrationsRun: process.env.DB_MIGRATIONS ? process.env.DB_MIGRATIONS === 'true' : true,
+    synchronize: process.env.DB_SYNC ? process.env.DB_SYNC === 'true' : false,
+    migrationsRun: process.env.DB_MIGRATIONS ? process.env.DB_MIGRATIONS === 'true' : true,
   },
   redis_clients: {
     idleSyncInterval: parseInt(process.env.CLIENTS_IDLE_SYNC_INTERVAL, 10) || 1000 * 60 * 60, // 1hr
