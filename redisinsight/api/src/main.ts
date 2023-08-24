@@ -23,6 +23,8 @@ interface IApp {
 }
 
 export default async function bootstrap(): Promise<IApp> {
+  console.log('___ BE bootstrap');
+  console.log('___ BE conf', require('util').inspect(get(), { depth: null }))
   await migrateHomeFolder();
 
   const port = process.env.API_PORT || serverConfig.port;
