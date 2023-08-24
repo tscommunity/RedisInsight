@@ -59,7 +59,6 @@ const PATH_CONFIG = config.get('dir_path');
     DatabaseAnalysisModule,
     DatabaseImportModule,
     TriggeredFunctionsModule,
-    CloudModule.register(),
     ...(SERVER_CONFIG.staticContent
       ? [
         ServeStaticModule.forRoot({
