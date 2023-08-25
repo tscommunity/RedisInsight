@@ -52,16 +52,16 @@ const init = async () => {
   try {
     await app.whenReady()
 
-    // todo: create and move to some on app ready handler
-    // deep linking
-    // register our application to handle custom protocol
-    if (process.defaultApp) {
-      if (process.argv.length >= 2) {
-        app.setAsDefaultProtocolClient(config.schema, process.execPath, [path.resolve(process.argv[1])])
-      }
-    } else {
-      app.setAsDefaultProtocolClient(config.schema)
-    }
+    // // todo: create and move to some on app ready handler
+    // // deep linking
+    // // register our application to handle custom protocol
+    // if (process.defaultApp) {
+    //   if (process.argv.length >= 2) {
+    //     app.setAsDefaultProtocolClient(config.schema, process.execPath, [path.resolve(process.argv[1])])
+    //   }
+    // } else {
+    //   app.setAsDefaultProtocolClient(config.schema)
+    // }
 
     const splashWindow = await windowFactory(WindowType.Splash)
     await windowFactory(WindowType.Main, splashWindow)

@@ -5,7 +5,6 @@
   "debug": false,
   "themeSource": "dark",
   "appName": "RedisInsight",
-  "schema": "redisinsight",
   "mainWindow": {
     "show": false,
     "width": 1300,
