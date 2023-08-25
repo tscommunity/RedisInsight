@@ -1,4 +1,3 @@
-import { SimpleStorage } from '@okta/okta-auth-js';
 import config from 'src/utils/config';
 import { CloudAuthStrategy } from 'src/modules/cloud/auth/auth-strategy/cloud-auth.strategy';
 import { CloudAuthIdpType } from 'src/modules/cloud/auth/models/cloud-auth-request';
@@ -22,7 +21,7 @@ export class GithubIdpCloudAuthStrategy extends CloudAuthStrategy {
       responseMode: 'query',
       responseType: 'code',
       tokenManager: {
-        storage: {} as SimpleStorage,
+        storage: {},
       },
     };
   }
